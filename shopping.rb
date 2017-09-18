@@ -17,7 +17,7 @@ class Feed
   end
 
   def upc_check(product)
-    if product['Internal Notes'].to_i != 0 && product['Internal Notes'].to_i.to_s.length == 12
+    if product['Internal Notes'].to_i.to_s.length == 12
       return product['Internal Notes'].to_i
     else
       return ''
