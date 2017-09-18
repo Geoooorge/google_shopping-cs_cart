@@ -16,6 +16,14 @@ class Feed
     Category::EXCLUDED_SUPPLIER.include?(product['Supplier'])
   end
 
+  def upc_check(product)
+    if product['Internal Notes'].to_i != 0 && product['Internal Notes'].to_i.to_s.length == 12
+      return product['Internal Notes'].to_i
+    else
+      return ''
+    end
+  end
+
   def export_feed
     convert_raw_feed
     CSV.open('product_feed.csv', "w") do |csv|
@@ -30,7 +38,7 @@ class Feed
   def convert_raw_feed
     exported_products = CSV.foreach(@feed, headers: true, col_sep: "\t") do |product|
       if product_active?(product) && !excluded_product?(product)
-        @feed_products << [product['Product code'], product['Product name'], product['Description'], product['Product URL'], 'in stock', product['Price'], Category::GOOGLE_PRODUCT_CATEGORY, product['Category'], product['Supplier'], product['Product code'], 'new', product['Internal Notes']]
+        @feed_products << [product['Product code'], product['Product name'], product['Description'], product['Product URL'], 'in stock', product['Price'], Category::GOOGLE_PRODUCT_CATEGORY, product['Category'], product['Supplier'], product['Product code'], 'new', upc_check(product)]
       end
     end
   end
