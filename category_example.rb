@@ -17,4 +17,5 @@ module Category
   'gtin']
 
   EXCLUDED_SUPPLIER = []
+  DEFAULT_CATEGORY = []
 end
