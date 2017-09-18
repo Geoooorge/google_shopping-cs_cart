@@ -8,8 +8,16 @@ class Feed
     @feed_products = []
   end
 
+  def product_active?(product)
+    product['Status'] == "A"
+  end
+
+  def excluded_product?(product)
+    Category::EXCLUDED_SUPPLIER.include?(product['Supplier'])
+  end
+
   def export_feed
-    self.convert_raw_feed
+    convert_raw_feed
     CSV.open('product_feed.csv', "w") do |csv|
       csv << Category::FEED_HEADER
 
@@ -21,7 +29,9 @@ class Feed
 
   def convert_raw_feed
     exported_products = CSV.foreach(@feed, headers: true, col_sep: "\t") do |product|
-      @feed_products << [product['Product code'], product['Product name'], product['Description'], product['Product URL'], 'in stock', product['Price'], Category::GOOGLE_PRODUCT_CATEGORY, product['Category'], product['Supplier'], product['Product code'], 'new', product['Internal Notes']]
+      if product_active?(product) && !excluded_product?(product)
+        @feed_products << [product['Product code'], product['Product name'], product['Description'], product['Product URL'], 'in stock', product['Price'], Category::GOOGLE_PRODUCT_CATEGORY, product['Category'], product['Supplier'], product['Product code'], 'new', product['Internal Notes']]
+      end
     end
   end
 end

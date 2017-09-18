@@ -1,5 +1,5 @@
 module Category
-  GOOGLE_PRODUCT_CATEGORY = 'Furniture > Baby & Toddler Furniture > Crib & Toddler Bed Accessories'
+  GOOGLE_PRODUCT_CATEGORY = ''
 
   FEED_HEADER = [
   'id',
@@ -16,5 +16,5 @@ module Category
   'condition',
   'gtin']
 
-  EXCLUDED_SUPPLIER = ['Roomates Decor']
+  EXCLUDED_SUPPLIER = []
 end
