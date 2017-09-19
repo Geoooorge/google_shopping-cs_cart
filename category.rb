@@ -16,6 +16,6 @@ module Category
   'condition',
   'gtin']
 
-  EXCLUDED_SUPPLIER = ['Roomates Decor']
+  EXCLUDED_SUPPLIER = ['roomates decor', 'roommates décor']
   DEFAULT_CATEGORY = 'Crib Bedding and Accessories'
 end
