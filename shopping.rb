@@ -35,12 +35,12 @@ class Feed
 
   def image_convert(product)
     product_image = product['Detailed image']
-    product_image.gsub("/var/www/vhosts/","http://www.").gsub('/httpdocs','')[/[^#]+/]
+    product_image.gsub("/var/www/vhosts/","https://www.").gsub('/httpdocs','')[/[^#]+/]
   end
 
   def export_feed
     convert_raw_feed
-    CSV.open('product_feed.csv', "w") do |csv|
+    CSV.open('product_feed.csv', "w", col_sep: "\t") do |csv|
       csv << Category::FEED_HEADER
 
       @feed_products.each do |row|
